@@ -121,12 +121,92 @@
             background-color: var(--accent-hover);
         }
         
-        .hero-image {
-            max-width: 100%;
-            margin-top: 4rem;
+        /* Carousel Styles */
+        .carousel-container {
+            max-width: 800px;
+            margin: 4rem auto 0;
+            position: relative;
+        }
+        
+        .carousel {
             border-radius: 12px;
+            overflow: hidden;
+            position: relative;
             box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
             border: 1px solid var(--border);
+        }
+        
+        .carousel-inner {
+            display: flex;
+            transition: transform 0.5s ease;
+        }
+        
+        .carousel-item {
+            min-width: 100%;
+            height: 450px;
+        }
+        
+        .carousel-item img {
+            width: 100%;
+            height: 100%;
+            object-fit: container;
+        }
+        
+        .carousel-controls {
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 0 20px;
+            pointer-events: none;
+        }
+        
+        .carousel-control {
+            background-color: rgba(0, 0, 0, 0.5);
+            color: white;
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            pointer-events: auto;
+            border: none;
+            font-size: 1.5rem;
+            transition: background-color 0.2s;
+        }
+        
+        .carousel-control:hover {
+            background-color: rgba(0, 0, 0, 0.7);
+        }
+        
+        .carousel-indicators {
+            position: absolute;
+            bottom: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            display: flex;
+            gap: 10px;
+        }
+        
+        .carousel-indicator {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.2s;
+            border: none;
+            padding: 0;
+        }
+        
+        .carousel-indicator.active {
+            background-color: white;
         }
         
         .features {
@@ -327,6 +407,16 @@
                 gap: 2rem;
                 text-align: center;
             }
+            
+            .carousel-control {
+                width: 30px;
+                height: 30px;
+                font-size: 1rem;
+            }
+            
+            .carousel-item {
+                height: 300px;
+            }
         }
     </style>
 </head>
@@ -350,7 +440,40 @@
             <h1>Manage AWS Like Never Before</h1>
             <p>Cloud Dash is a native macOS app that provides a beautiful, intuitive interface for managing multiple AWS accounts, all from your desktop.</p>
             <a href="#beta" class="cta-button">Get Beta Access</a>
-            <img src="/api/placeholder/800/500" alt="Cloud Dash app interface" class="hero-image" />
+            
+            <!-- Carousel Component -->
+            <div class="carousel-container">
+                <div class="carousel">
+                    <div class="carousel-inner">
+                        <div class="carousel-item">
+                            <img src="/screenshots/1.png" alt="Cloud Dash dashboard view" />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/screenshots/2.png" alt="EC2 Instances" />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/screenshots/3.png" alt="Cloud Watch Metrics" />
+                        </div>
+                        <div class="carousel-item">
+                            <img src="/screenshots/4.png" alt="Bill Analysis" />
+                        </div>
+                    </div>
+                    
+                    <div class="carousel-controls">
+                        <button class="carousel-control prev">&#10094;</button>
+                        <button class="carousel-control next">&#10095;</button>
+                    </div>
+                    
+                    <div class="carousel-indicators">
+                        <button class="carousel-indicator active" data-slide="0"></button>
+                        <button class="carousel-indicator" data-slide="1"></button>
+                        <button class="carousel-indicator" data-slide="2"></button>
+                        <button class="carousel-indicator" data-slide="3"></button>
+                    </div>
+                </div>
+            </div>
+            <!-- End Carousel Component -->
+            
         </div>
     </section>
 
@@ -370,7 +493,7 @@
                     <h3>Multiple Account Support</h3>
                     <p>Seamlessly switch between different AWS accounts and regions with a single click.</p>
                 </div>
-                <div class="feature-card">
+                <!-- <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <rect x="3" y="3" width="18" height="18" rx="2" ry="2"></rect>
@@ -380,7 +503,7 @@
                     </div>
                     <h3>Visual Resource Management</h3>
                     <p>Visualize your AWS infrastructure with intuitive diagrams and resource relationships.</p>
-                </div>
+                </div> -->
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -401,7 +524,7 @@
                     <h3>Dark Mode</h3>
                     <p>Works seamlessly with macOS dark mode to reduce eye strain during long sessions.</p>
                 </div>
-                <div class="feature-card">
+                <!-- <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
                             <circle cx="12" cy="12" r="10"></circle>
@@ -410,7 +533,7 @@
                     </div>
                     <h3>Real-time Notifications</h3>
                     <p>Get instant alerts about critical AWS events and service status changes.</p>
-                </div>
+                </div> -->
                 <div class="feature-card">
                     <div class="feature-icon">
                         <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
@@ -431,13 +554,14 @@
                 <p>Join our exclusive beta program and be the first to experience Cloud Dash</p>
             </div>
             <div class="beta-form">
-                <form id="beta-signup">
+                <!-- <form id="beta-signup">
                     <div class="form-group">
                         <label for="email">Email Address</label>
                         <input type="email" id="email" placeholder="you@example.com" required>
                     </div>
                     <button type="submit" class="submit-button">Request Beta Access</button>
-                </form>
+                </form> -->
+                <button class="submit-button" onclick="location.href='https://forms.gle/ovz38T1cUj1ncHmz7';void(0);">Request Beta Access</button>
             </div>
         </div>
     </section>
@@ -455,7 +579,7 @@
                 </div>
                 <div class="faq-item">
                     <h3>How much will Cloud Dash cost?</h3>
-                    <p>Cloud Dash will be offered with a 14-day free trial, followed by a $9.99/month subscription or $99/year. Beta testers will receive 3 months free after launch.</p>
+                    <p>Cloud Dash will be offered with a 14-day free trial, followed by a $30/year subscription. Beta testers will receive 3 months free after launch.</p>
                 </div>
                 <div class="faq-item">
                     <h3>What macOS version is required?</h3>
@@ -479,19 +603,80 @@
                 © 2025 Cloud Dash. All rights reserved.
             </div>
             <div class="footer-links">
-                <a href="#">Privacy Policy</a>
+                <!-- <a href="#">Privacy Policy</a>
                 <a href="#">Terms of Service</a>
-                <a href="#">Contact</a>
+                <a href="#">Contact</a> -->
             </div>
         </div>
     </footer>
 
     <script>
-        document.getElementById('beta-signup').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const email = document.getElementById('email').value;
-            alert(`Thanks for your interest! We've added ${email} to our beta waiting list.`);
-            document.getElementById('email').value = '';
+        // document.getElementById('beta-signup').addEventListener('submit', function(e) {
+        //     e.preventDefault();
+        //     const email = document.getElementById('email').value;
+        //     alert(`Thanks for your interest! We've added ${email} to our beta waiting list.`);
+        //     document.getElementById('email').value = '';
+        // });
+        
+        // Carousel functionality
+        document.addEventListener('DOMContentLoaded', function() {
+            const carouselInner = document.querySelector('.carousel-inner');
+            const indicators = document.querySelectorAll('.carousel-indicator');
+            const prevButton = document.querySelector('.carousel-control.prev');
+            const nextButton = document.querySelector('.carousel-control.next');
+            const slideCount = document.querySelectorAll('.carousel-item').length;
+            let currentSlide = 0;
+            
+            // Function to update carousel position
+            function updateCarousel() {
+                carouselInner.style.transform = `translateX(-${currentSlide * 100}%)`;
+                
+                // Update indicators
+                indicators.forEach((indicator, index) => {
+                    if (index === currentSlide) {
+                        indicator.classList.add('active');
+                    } else {
+                        indicator.classList.remove('active');
+                    }
+                });
+            }
+            
+            // Next slide
+            function nextSlide() {
+                currentSlide = (currentSlide + 1) % slideCount;
+                updateCarousel();
+            }
+            
+            // Previous slide
+            function prevSlide() {
+                currentSlide = (currentSlide - 1 + slideCount) % slideCount;
+                updateCarousel();
+            }
+            
+            // Event listeners
+            nextButton.addEventListener('click', nextSlide);
+            prevButton.addEventListener('click', prevSlide);
+            
+            // Indicator clicks
+            indicators.forEach((indicator, index) => {
+                indicator.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateCarousel();
+                });
+            });
+            
+            // Auto-advance slides every 5 seconds
+            let slideInterval = setInterval(nextSlide, 5000);
+            
+            // Pause auto-advance when user interacts with carousel
+            const carousel = document.querySelector('.carousel');
+            carousel.addEventListener('mouseenter', () => {
+                clearInterval(slideInterval);
+            });
+            
+            carousel.addEventListener('mouseleave', () => {
+                slideInterval = setInterval(nextSlide, 5000);
+            });
         });
     </script>
 </body>
